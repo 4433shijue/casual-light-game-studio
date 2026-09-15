@@ -1,0 +1,11 @@
+{
+  "assets": [
+    {
+      "id": "A-01-player-placeholder",
+      "category": "character",
+      "version": "A",
+      "format": "svg",
+      "status": "placeholder"
+    }
+  ]
+}

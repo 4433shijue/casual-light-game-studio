@@ -1,0 +1,8 @@
+{
+  "name": "casual-click-starter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {"test": "node --test src/round.test.js"},
+  "dependencies": {"phaser": "3.90.0"}
+}
