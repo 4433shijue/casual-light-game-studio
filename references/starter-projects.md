@@ -51,3 +51,5 @@ python scripts/generate_game_docs.py brief.json new-docs
 - [Godot 命令行](https://docs.godotengine.org/en/stable/tutorials/editor/command_line_tutorial.html)
 
 这些链接是按需查阅来源。使用不同版本或导出平台时核验对应官方接口与环境，不能从本文推断全部平台已经通过测试。
+
+简报推荐用 `experience` 描述体验结构，允许自由探索和一次性流程。旧字段 `loop` 仍兼容；两者同时出现时优先使用 `experience`，所选字段必须为非空文本。生成文档使用“体验结构或核心循环”标题，试玩表按实际状态裁剪，空表保持未测。

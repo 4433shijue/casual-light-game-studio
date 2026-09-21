@@ -6,7 +6,7 @@
 
 这是给支持 Skill 或读取项目指令的 AI 智能体使用的制作资料包。里面有主指令、案例、提示词、项目模板和 Python 工具。使用它需要你自己的 AI 工具；生图、生视频等能力取决于那个工具实际支持什么。
 
-当前版本 **v1.1.1 · 浏览器轻量交付与自由布局**。可在 [版本发布页](https://github.com/4433shijue/casual-light-game-studio/releases/tag/v1.1.1) 下载完整 Skill ZIP，更新内容见 [更新记录](CHANGELOG.md)。
+当前版本 **v1.1.2 · 手感反馈与试玩迭代**。可在 [版本发布页](https://github.com/4433shijue/casual-light-game-studio/releases/tag/v1.1.2) 下载完整 Skill ZIP，更新内容见 [更新记录](CHANGELOG.md)。
 
 ## 先试这一句
 
@@ -78,3 +78,9 @@ Godot 和 Phaser 附带的点击游戏用于演示输入、计时、暂停、结
 横屏、竖屏和窗口适配按玩法选择。桌面调饮料可以直接拖动器具，路线游戏可以让地图占满主要空间。示例的侧栏不用跟着你去下一款游戏上班。
 
 更多取舍见 [浏览器交付指南](references/browser-delivery.md) 和 [方向与布局说明](references/layout-and-input.md)。手机能否直接打开收到的文件，仍需在对应设备上检查。
+
+## 操作顺不顺，试玩后再细调
+
+可以只让它分析拖动吸附，也可以带着试玩记录找问题。新增 [手感反馈](references/feel-and-feedback.md) 与 [试玩诊断](references/playtest-diagnosis.md) 两个入口，按当前任务取用。
+
+一个物品放不进去，先看看落点和规则，再决定改哪里。暂时不用给收纳盒加抽卡系统。方案和试玩表也允许自由探索、一次性叙事与无胜负体验。

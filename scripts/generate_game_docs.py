@@ -7,9 +7,13 @@ from pathlib import Path
 def render(data):
     if not isinstance(data, dict):
         raise ValueError('Brief must be an object')
-    for key in ('name', 'goal', 'loop', 'platform'):
+    for key in ('name', 'goal', 'platform'):
         if not isinstance(data.get(key), str) or not data[key].strip():
             raise ValueError(f'{key} must be non-empty text')
+    experience_key = 'experience' if 'experience' in data else 'loop'
+    experience = data.get(experience_key)
+    if not isinstance(experience, str) or not experience.strip():
+        raise ValueError(f'{experience_key} must be non-empty text')
     if data.get('tier') not in ('A', 'B', 'C'):
         raise ValueError('tier must be A, B or C')
     excluded = data.get('out_of_scope', [])
@@ -44,7 +48,7 @@ def render(data):
             raise ValueError('Dependency cycle')
         for key in ready:
             ordered.append(pending.pop(key))
-    design = f"# {data['name']}\n\n状态：方案草稿，尚未实现或验证\n\n目标：{data['goal']}\n\n核心循环：{data['loop']}\n\n版本：{data['tier']}\n\n平台：{data['platform']}\n\n## 不做范围\n\n"
+    design = f"# {data['name']}\n\n状态：方案草稿，尚未实现或验证\n\n目标：{data['goal']}\n\n体验结构或核心循环：{experience}\n\n版本：{data['tier']}\n\n平台：{data['platform']}\n\n## 不做范围\n\n"
     design += '\n'.join('- ' + item for item in excluded) + '\n'
     tasks = '# 开发任务\n\n按依赖顺序排列，以下均未执行。\n'
     for module in ordered:

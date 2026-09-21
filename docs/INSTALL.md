@@ -51,8 +51,8 @@ git pull --ff-only
 
 仅使用策划、案例和提示词时，可以暂时不安装这些开发环境。模板也不会偷偷替你下载引擎。
 
-## 升级到 v1.1.1
+## 升级到 v1.1.2
 
-从 [版本发布页](https://github.com/4433shijue/casual-light-game-studio/releases/tag/v1.1.1) 下载 `casual-light-game-studio-v1.1.1.zip`。先备份安装目录里你自己改过的内容，再用 ZIP 中的完整 `casual-light-game-studio` 文件夹更新安装。
+从 [版本发布页](https://github.com/4433shijue/casual-light-game-studio/releases/tag/v1.1.2) 下载 `casual-light-game-studio-v1.1.2.zip`。先备份安装目录里你自己改过的内容，再用 ZIP 中的完整 `casual-light-game-studio` 文件夹更新安装。
 
-本次新增浏览器交付、布局参考和原生 HTML 骨架，只换 `SKILL.md` 会缺少引用文件。更新后按所用智能体的方式重新加载技能，再试试使用示例中的局部改名请求。本次不需要迁移游戏代码或存档。
+本次新增手感与试玩参考，修订模板并兼容旧简报字段，只换 `SKILL.md` 会缺少引用文件。更新后按所用智能体的方式重新加载技能，再试试使用示例中的局部改名请求。本次不需要迁移游戏代码或存档。
