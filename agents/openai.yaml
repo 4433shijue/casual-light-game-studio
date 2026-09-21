@@ -1,4 +1,4 @@
 interface:
   display_name: "轻量小游戏工作室"
-  short_description: "从想法到可玩原型，提供流程、框架、资产提示词、项目模板与验证工具"
+  short_description: "从想法到可玩原型，提供玩法流程、世界观用语、游戏文案、资产提示词与验证工具"
   default_prompt: "使用 $casual-light-game-studio，帮我把这个休闲小游戏想法整理成可执行方案。"
