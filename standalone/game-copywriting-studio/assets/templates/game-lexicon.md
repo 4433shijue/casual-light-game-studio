@@ -1,3 +1,5 @@
+<!-- Generated from the main skill resource at assets/templates/game-lexicon.md; use scripts/build_copywriting_skill.py to update. -->
+
 # 术语与文案记录
 
 这是可选模板，适合需要持续维护用语的项目。按需删改列，优先使用已有项目记录。单次改两个按钮，不必给按钮办理整套档案。

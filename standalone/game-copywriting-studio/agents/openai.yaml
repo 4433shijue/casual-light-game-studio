@@ -1,0 +1,4 @@
+interface:
+  display_name: "游戏文案工作室"
+  short_description: "设计游戏术语、角色对白、界面教学与情境提示，支持局部改稿和文案检查"
+  default_prompt: "使用 $game-copywriting-studio，根据我的游戏设定和真实机制设计所需文案。"

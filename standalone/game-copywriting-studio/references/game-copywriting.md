@@ -1,3 +1,5 @@
+<!-- Generated from the main skill resource at references/game-copywriting.md; use scripts/build_copywriting_skill.py to update. -->
+
 # 世界观用语与游戏文案
 
 当用户需要命名、界面提示、物品说明或文案检查时读取本文件。它可以独立使用，也可以参与玩法、UI 和资产设计。只做当前请求需要的部分，案例和表格随时可改。
