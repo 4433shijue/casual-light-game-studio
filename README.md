@@ -6,7 +6,7 @@
 
 这是给支持 Skill 或读取项目指令的 AI 智能体使用的制作资料包。里面有主指令、案例、提示词、项目模板和 Python 工具。使用它需要你自己的 AI 工具；生图、生视频等能力取决于那个工具实际支持什么。
 
-当前版本 **v1.1.0 · 世界观用语与游戏文案**。可在 [版本发布页](https://github.com/4433shijue/casual-light-game-studio/releases/tag/v1.1.0) 下载完整 Skill ZIP，更新内容见 [更新记录](CHANGELOG.md)。
+当前版本 **v1.1.1 · 浏览器轻量交付与自由布局**。可在 [版本发布页](https://github.com/4433shijue/casual-light-game-studio/releases/tag/v1.1.1) 下载完整 Skill ZIP，更新内容见 [更新记录](CHANGELOG.md)。
 
 ## 先试这一句
 
@@ -58,7 +58,7 @@ Godot 和 Phaser 附带的点击游戏用于演示输入、计时、暂停、结
 | `SKILL.md` | 智能体的主指令与按需读取入口 |
 | `references/` | 案例、框架建议、资产提示词、接续与验证参考 |
 | `assets/templates/` | 项目简报、术语与文案、试玩和接续记录模板 |
-| `assets/starters/` | Godot 4 与 Phaser 3 的最小项目骨架 |
+| `assets/starters/` | 原生单文件 HTML、Godot 4 与 Phaser 3 的参考骨架 |
 | `scripts/` | 创建工程、生成文档、生成及检查资产清单 |
 
 阅读资料不需要先装 Python。运行附带脚本需要 Python 3.10 或更高版本；跑游戏模板还需要对应引擎或浏览器开发环境。具体命令见 [工具与模板说明](references/starter-projects.md)。
@@ -70,3 +70,11 @@ Godot 和 Phaser 附带的点击游戏用于演示输入、计时、暂停、结
 详细范围见 [验证记录](docs/VALIDATION.md)。发现问题欢迎带上复现步骤提 Issue，尤其欢迎告诉我们“这里把我的点子带跑偏了”。这种反馈比多堆十张模板有用。
 
 本仓库暂未指定开源许可证。Phaser、Godot 及外部生成素材各自的许可条件需分别确认。
+
+## 没装引擎，也能开工
+
+如果你只想把小游戏发给朋友，原生 HTML 可能就够用。包里附了 [风与色单文件示例](assets/starters/html/index.html)，设计为保存完整文件后在桌面浏览器直接打开。它没有在线库或外部素材；本次已验证服务方式运行，本地文件与断网测试受工具限制尚未完成，详见验证记录。也可以根据作品需要选择素材目录、前端工程或游戏引擎。
+
+横屏、竖屏和窗口适配按玩法选择。桌面调饮料可以直接拖动器具，路线游戏可以让地图占满主要空间。示例的侧栏不用跟着你去下一款游戏上班。
+
+更多取舍见 [浏览器交付指南](references/browser-delivery.md) 和 [方向与布局说明](references/layout-and-input.md)。手机能否直接打开收到的文件，仍需在对应设备上检查。

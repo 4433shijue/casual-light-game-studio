@@ -6,7 +6,7 @@ from pathlib import Path
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('engine', choices=['godot', 'phaser'])
+    parser.add_argument('engine', choices=['godot', 'phaser', 'html'])
     parser.add_argument('output', type=Path)
     args = parser.parse_args()
     source = Path(__file__).resolve().parents[1] / 'assets' / 'starters' / args.engine
@@ -18,7 +18,10 @@ def main():
     except (OSError, ValueError) as exc:
         print(f'Not created: {exc}')
         return 1
-    print(f'Created {args.engine} starter: {target}; dependencies have not been installed')
+    if args.engine == 'html':
+        print(f'Created HTML starter: {target / "index.html"}; open this file in a browser; no dependencies required')
+    else:
+        print(f'Created {args.engine} starter: {target}; dependencies have not been installed')
     return 0
 
 

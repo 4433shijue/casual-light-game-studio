@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>风与色 · 原生 HTML 互动示例</title>
+<style>
+  * { box-sizing: border-box; }
+  :root { color-scheme: dark; font-family: system-ui, sans-serif; }
+  body { margin: 0; background: #101d28; color: #ecf4ef; }
+  main { min-height: 100svh; display: grid; grid-template-columns: minmax(210px, 260px) minmax(0, 1fr); }
+  aside { padding: max(24px, env(safe-area-inset-top)) 24px 24px max(24px, env(safe-area-inset-left)); display: flex; flex-direction: column; gap: 18px; }
+  h1 { font-size: 2rem; font-weight: 500; margin: 0; }
+  p { line-height: 1.7; margin: 0; color: #b5c9cd; }
+  .eyebrow { font-size: .75rem; letter-spacing: .18em; color: #d8ba8b; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; }
+  button { min-height: 44px; padding: 10px 18px; border: 1px solid #57717b; border-radius: 8px; background: #203440; color: inherit; font: inherit; cursor: pointer; }
+  button:hover { background: #304d59; }
+  :focus-visible { outline: 3px solid #edcd93; outline-offset: 3px; }
+  #status { font-size: .9rem; color: #e5c999; }
+  .note { margin-top: auto; font-size: .8rem; }
+  .field { min-width: 0; padding: 20px max(20px, env(safe-area-inset-right)) 20px 0; }
+  canvas { display: block; width: 100%; height: calc(100svh - 40px); min-height: 260px; background: #142734; border: 1px solid #314753; border-radius: 16px; touch-action: none; }
+  @media (max-aspect-ratio: 1/1), (max-width: 620px) {
+    main { grid-template-columns: 1fr; }
+    aside { padding: 20px max(20px, env(safe-area-inset-right)) 14px max(20px, env(safe-area-inset-left)); gap: 10px; }
+    h1 { font-size: 1.6rem; }
+    .note { display: none; }
+    .field { padding: 0 max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
+    canvas { height: 58svh; min-height: 260px; }
+  }
+  @media (prefers-reduced-motion: reduce) { canvas { scroll-behavior: auto; } }
+</style>
+<main>
+  <aside>
+    <p class="eyebrow">一个可随意改写的互动示例</p>
+    <h1>风与色</h1>
+    <p id="instructions">按住并拖动色带，带它换个方向。也可以点选画布后，用方向键拨动。</p>
+    <div class="controls">
+      <button id="pause" type="button" aria-pressed="false">暂停</button>
+      <button id="reset" type="button">重置画面</button>
+    </div>
+    <p id="status" role="status" aria-live="polite">自由拨动，没有分数。</p>
+    <p class="note">空格切换暂停，R 重置。<br>侧栏和色带都只是例子，下一款游戏可以完全换个样子。</p>
+  </aside>
+  <div class="field">
+    <canvas id="field" tabindex="0" role="img" aria-label="可用方向键拨动的彩色色带" aria-describedby="instructions">请使用支持 Canvas 的浏览器。</canvas>
+  </div>
+</main>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.querySelector('#field');
+  const ctx = canvas.getContext('2d');
+  const pauseButton = document.querySelector('#pause');
+  const resetButton = document.querySelector('#reset');
+  const status = document.querySelector('#status');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  let paused = motion.matches, phase = 0, lastTime = null, activePointer = null;
+  let point = {x: .5, y: .5};
+  const colors = ['#88cfc8', '#e3bf88', '#bba2ce'];
+  const clamp = value => Math.max(0, Math.min(1, value));
+  function paint() {
+    const box = canvas.getBoundingClientRect();
+    const ratio = Math.min(devicePixelRatio || 1, 2);
+    const width = Math.round(box.width * ratio), height = Math.round(box.height * ratio);
+    if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    ctx.clearRect(0, 0, box.width, box.height);
+    colors.forEach((color, index) => {
+      ctx.beginPath();
+      for (let step = 0; step <= 80; step++) {
+        const x = step / 80 * box.width;
+        const focus = Math.exp(-Math.pow(step / 80 - point.x, 2) * 12);
+        const y = box.height * (.35 + index * .15 + Math.sin(step / 13 + phase + index) * .035 + (point.y - .5) * focus * .55);
+        if (step === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = color; ctx.lineWidth = Math.max(8, box.height * .027);
+      ctx.lineCap = 'round'; ctx.stroke();
+    });
+  }
+  function reflectState() {
+    pauseButton.textContent = paused ? '继续' : '暂停';
+    pauseButton.setAttribute('aria-pressed', String(paused));
+    status.textContent = paused ? '已暂停，点继续后再拨动。' : '自由拨动，没有分数。';
+  }
+  function releasePointer() {
+    if (activePointer !== null && canvas.hasPointerCapture(activePointer)) canvas.releasePointerCapture(activePointer);
+    activePointer = null;
+  }
+  function togglePause() { paused = !paused; releasePointer(); lastTime = null; reflectState(); }
+  function reset() { releasePointer(); point = {x: .5, y: .5}; phase = 0; lastTime = null; paint(); status.textContent = paused ? '画面已重置，仍处于暂停。' : '画面已重置。'; }
+  function move(event) {
+    const box = canvas.getBoundingClientRect();
+    point = {x: clamp((event.clientX - box.left) / box.width), y: clamp((event.clientY - box.top) / box.height)};
+    paint();
+  }
+  canvas.addEventListener('pointerdown', event => {
+    if (paused || activePointer !== null || event.button !== 0) return;
+    event.preventDefault(); canvas.focus(); activePointer = event.pointerId;
+    canvas.setPointerCapture(activePointer); move(event);
+  });
+  canvas.addEventListener('pointermove', event => { if (!paused && event.pointerId === activePointer) move(event); });
+  for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) {
+    canvas.addEventListener(type, event => { if (event.pointerId === activePointer) releasePointer(); });
+  }
+  canvas.addEventListener('keydown', event => {
+    if (event.code === 'Space') { event.preventDefault(); if (!event.repeat) togglePause(); return; }
+    if (event.key.toLowerCase() === 'r') { event.preventDefault(); reset(); return; }
+    const directions = {ArrowLeft: [-.04, 0], ArrowRight: [.04, 0], ArrowUp: [0, -.04], ArrowDown: [0, .04]};
+    const delta = directions[event.key];
+    if (!delta) return;
+    event.preventDefault();
+    if (!paused) { point.x = clamp(point.x + delta[0]); point.y = clamp(point.y + delta[1]); paint(); }
+  });
+  pauseButton.addEventListener('click', togglePause);
+  resetButton.addEventListener('click', reset);
+  window.addEventListener('blur', releasePointer);
+  document.addEventListener('visibilitychange', () => { releasePointer(); lastTime = null; });
+  new ResizeObserver(paint).observe(canvas);
+  function frame(now) {
+    if (!paused && !document.hidden && lastTime !== null) phase += Math.min((now - lastTime) / 1000, .05) * .45;
+    lastTime = now;
+    if (!paused && !document.hidden) paint();
+    requestAnimationFrame(frame);
+  }
+  reflectState(); paint(); requestAnimationFrame(frame);
+})();
+</script>
+</html>
