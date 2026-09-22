@@ -31,7 +31,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true', help='Check without rewriting shared resources')
     parser.add_argument('--output', type=Path, help='New directory for deterministic ZIP files')
-    parser.add_argument('--version', default='1.2.0')
+    parser.add_argument('--version', default='1.2.1')
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     standalone = root / 'standalone/game-copywriting-studio'

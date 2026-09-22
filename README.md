@@ -6,7 +6,7 @@
 
 这是给支持 Skill 或读取项目指令的 AI 智能体使用的制作资料包。里面有主指令、案例、提示词、项目模板和 Python 工具。使用它需要你自己的 AI 工具；生图、生视频等能力取决于那个工具实际支持什么。
 
-当前版本 **v1.2.0 · 独立游戏文案工作室**。可在 [版本发布页](https://github.com/4433shijue/casual-light-game-studio/releases/tag/v1.2.0) 下载完整 Skill ZIP，更新内容见 [更新记录](CHANGELOG.md)。
+当前版本 **v1.2.1 · 数值推演与作品交付**。可在 [版本发布页](https://github.com/4433shijue/casual-light-game-studio/releases/tag/v1.2.1) 下载完整 Skill ZIP，更新内容见 [更新记录](CHANGELOG.md)。
 
 ## 先试这一句
 
@@ -93,4 +93,10 @@ Godot 和 Phaser 附带的点击游戏用于演示输入、计时、暂停、结
 
 ## 独立游戏文案工作室
 
-只想写文案，可以安装 [独立版](standalone/game-copywriting-studio/README.md)，使用 `$game-copywriting-studio`。完整工作室仍保留全部文案能力，不要求额外安装。两个发布包共用 v1.2.0 版本号，独立版是首次发布。
+只想写文案，可以安装 [独立版](standalone/game-copywriting-studio/README.md)，使用 `$game-copywriting-studio`。完整工作室仍保留全部文案能力，不要求额外安装。两个发布包共用当前发布版本号，独立版首次发布于 v1.2.0。
+
+## 算一算，也交到别人手上
+
+实际有资源或成长规则时，可以用 [数值推演](references/balance-and-rules.md) 检查是否存在赚不到下一份原料、解锁条件互相等待等问题。计算需要写清假设，模拟通过不代表玩家一定觉得好玩。
+
+准备分享时，[展示与交付](references/showcase-and-delivery.md) 帮你整理玩法介绍、操作说明、代表性画面和启动步骤。没录过的视频就写待录制，计划支持手机就先留在计划里，宣传稿不用替程序提前毕业。
